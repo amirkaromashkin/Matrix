@@ -18,8 +18,6 @@ var PIXEL_RATIO = (function () {
     return dpr / bsr;
 })();
 
-// runMatrix();
-
 $(window).load(function () {
     initPage();
 });
@@ -33,37 +31,37 @@ window.setInterval(function () {
     var ctx = getHDPIContext(canvas);
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    matrix = create2DArray(canvas.width / cellSize, canvas.height / cellSize);
+    // matrix = create2DArray(canvas.width / cellSize, canvas.height / cellSize);
 
-    for (var i = 0; i < matrix.length; i++) {
-        for (var j = 0; j < matrix[0].length; j++) {
-            matrix[i][j] = getRandomChar();
-        }
-    }
+    /*for (var i = 0; i < matrix.length; i++) {
+     for (var j = 0; j < matrix[0].length; j++) {
+     matrix[i][j] = getRandomChar();
+     }
+     }*/
 
     ctx.fillStyle = "green"
     ctx.font = "20px Times New Roman"
-    var matrixAr = matrix;//.columns;
+    var matrixColumns = matrix.getColumns();
 
-    /*for (var i = 0; i < matrixAr.length; i += 1) {
-        for (var j = 0; j < matrixAr[0].values.length; j += 1) {
-            var text = matrix[i].values[j];
-            ctx.fillText(text, cellSize * i, cellSize * j);
-        }
-    }*/
-    for (var i = 0; i < matrixAr.length; i += 1) {
-        for (var j = 0; j < matrixAr[0].length; j += 1) {
-            var text = matrix[i][j];
+    for (var i = 0; i < matrixColumns.length; i += 1) {
+        for (var j = 0; j < matrixColumns[i].getValues().length; j += 1) {
+            var text = matrixColumns[i].getValues()[j];
             ctx.fillText(text, cellSize * i, cellSize * j);
         }
     }
+    //
+    //for (var i = 0; i < matrixAr.length; i += 1) {
+    //    for (var j = 0; j < matrixAr[0].length; j += 1) {
+    //        var text = matrix[i][j];
+    //        ctx.fillText(text, cellSize * i, cellSize * j);
+    //    }
+    //}
 }, 100);
 
 function runMatrix() {
-    const canvas = $(canvasSelector)[0];
+    var $canvas = $(canvasSelector);
 
-    var ctx = getHDPIContext(canvas);
-    matrix = new Matrix(ctx);
+    matrix = new Matrix($canvas.width() / cellSize, $canvas.height() / cellSize);
 
     matrix.start();
 }
@@ -116,7 +114,8 @@ function getHDPIContext(can, ratio) {
 
 function initPage() {
     initCanvasSize();
-    matrix = create2DArray(
-        $(canvasSelector).width() / cellSize,
-        $(canvasSelector).height() / cellSize);
+    runMatrix();
+    //matrix = create2DArray(
+    //    $(canvasSelector).width() / cellSize,
+    //    $(canvasSelector).height() / cellSize);
 }
