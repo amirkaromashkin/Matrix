@@ -7,7 +7,7 @@ function Column(rowCount) {
     this.subscribe = function (speed) {
         setInterval(function () {
             leadIndex = (leadIndex + 1) % rowCount;
-            values[leadIndex] = getRandomChar();
+            values[leadIndex] = String.fromCharCode(0x30A0 + Math.random() * (0x30FF - 0x30A0 + 1));
         }, speed);
     }
 
@@ -16,10 +16,10 @@ function Column(rowCount) {
     }
 }
 
-function Matrix(columnsCount, rowCount) {
+function MatrixModel(columnsCount, rowCount) {
     var columns = new Array();
 
-    Matrix.prototype.start = function () {
+    this.start = function () {
         for (var i = 0; i < columnsCount; i += 1) {
             var c = new Column(rowCount);
             c.subscribe(Math.random() * 100);
@@ -27,7 +27,7 @@ function Matrix(columnsCount, rowCount) {
         }
     }
 
-    Matrix.prototype.getColumns = function () {
+    this.getColumns = function () {
         return columns;
     }
 }

@@ -31,14 +31,6 @@ window.setInterval(function () {
     var ctx = getHDPIContext(canvas);
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    // matrix = create2DArray(canvas.width / cellSize, canvas.height / cellSize);
-
-    /*for (var i = 0; i < matrix.length; i++) {
-     for (var j = 0; j < matrix[0].length; j++) {
-     matrix[i][j] = getRandomChar();
-     }
-     }*/
-
     ctx.fillStyle = "green"
     ctx.font = "20px Times New Roman"
     var matrixColumns = matrix.getColumns();
@@ -49,19 +41,12 @@ window.setInterval(function () {
             ctx.fillText(text, cellSize * i, cellSize * j);
         }
     }
-    //
-    //for (var i = 0; i < matrixAr.length; i += 1) {
-    //    for (var j = 0; j < matrixAr[0].length; j += 1) {
-    //        var text = matrix[i][j];
-    //        ctx.fillText(text, cellSize * i, cellSize * j);
-    //    }
-    //}
 }, 100);
 
 function runMatrix() {
     var $canvas = $(canvasSelector);
 
-    matrix = new Matrix($canvas.width() / cellSize, $canvas.height() / cellSize);
+    matrix = new MatrixModel($canvas.width() / cellSize, $canvas.height() / cellSize);
 
     matrix.start();
 }
@@ -73,31 +58,6 @@ function initCanvasSize() {
     canvas.width = divQuery.width() - 10;
     canvas.height = divQuery.height() - 10;
     return canvas;
-}
-
-function create2DArray(w, h) {
-    var iMax = w;
-    var jMax = h;
-    var f = new Array();
-
-    for (var i = 0; i < iMax; i++) {
-        f[i] = new Array();
-        for (var j = 0; j < jMax; j++) {
-            f[i][j] = 0;
-        }
-    }
-
-    return f;
-}
-
-function createArray(size) {
-    var f = new Array();
-
-    for (var i = 0; i < size; i++) {
-        f[i] = 0;
-    }
-
-    return f;
 }
 
 function getHDPIContext(can, ratio) {
@@ -115,7 +75,4 @@ function getHDPIContext(can, ratio) {
 function initPage() {
     initCanvasSize();
     runMatrix();
-    //matrix = create2DArray(
-    //    $(canvasSelector).width() / cellSize,
-    //    $(canvasSelector).height() / cellSize);
 }
