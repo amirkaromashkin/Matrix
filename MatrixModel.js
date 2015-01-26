@@ -37,6 +37,20 @@ function MatrixModel(columnsCount, rowCount) {
         }
     }
 
+    //this.updateMatrixSize = function (w, d) {
+    //    if (w > columns.length) {
+    //        var delta = w - columns.length;
+    //
+    //        for (var i = 0; i < delta / 2; i++) {
+    //            columns.splice(i, 0, new Column(d));
+    //        }
+    //
+    //        for (var i = 0; i < columns.length - delta / 2; i++) {
+    //            columns.splice(i, 0, new Column(d));
+    //        }
+    //    }
+    //}
+
     this.getColumns = function () {
         return columns;
     }

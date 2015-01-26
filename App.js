@@ -3,7 +3,6 @@
  */
 
 var matrix = null;
-var cellSize = 30;
 const canvasSelector = "#canvas";
 
 var PIXEL_RATIO = (function () {
@@ -29,17 +28,26 @@ $(window).resize(function () {
 window.setInterval(function () {
     const canvas = $(canvasSelector)[0];
     var ctx = getHDPIContext(canvas);
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = "green"
-    ctx.font = "20px Times New Roman"
+    ctx.font = FontSize + "px Times New Roman"
     var matrixColumns = matrix.getColumns();
 
     for (var i = 0; i < matrixColumns.length; i += 1) {
         for (var j = 0; j < matrixColumns[i].getValues().length; j += 1) {
-            var text = matrixColumns[i].getValues()[j];
+            var column = matrixColumns[i].getValues();
+
+            var text = column[j];
+            var nextSymbol = column[(j + 1) % column.length];
+
+            if (nextSymbol == null) {
+                ctx.fillStyle = "lightgreen";
+            } else {
+                ctx.fillStyle = "green";
+            }
+
             if (text != null) {
-                ctx.fillText(text, cellSize * i, cellSize * j);
+                ctx.fillText(text, SingleSymbolRoomSize * i, SingleSymbolRoomSize * j);
             }
         }
     }
@@ -47,10 +55,15 @@ window.setInterval(function () {
 
 function runMatrix() {
     var $canvas = $(canvasSelector);
+    var columnsCount = Math.floor($canvas.width() / SingleSymbolRoomSize);
+    var rowCount = Math.floor($canvas.height() / SingleSymbolRoomSize);
 
-    matrix = new MatrixModel(
-        Math.floor($canvas.width() / cellSize),
-        Math.floor($canvas.height() / cellSize));
+    //if (matrix != null) {
+    //    matrix.updateMatrixSize(columnsCount, rowCount);
+    //}
+    //else {
+    matrix = new MatrixModel(columnsCount, rowCount);
+    //}
 
     matrix.start();
 }
