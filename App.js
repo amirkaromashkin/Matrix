@@ -38,7 +38,9 @@ window.setInterval(function () {
     for (var i = 0; i < matrixColumns.length; i += 1) {
         for (var j = 0; j < matrixColumns[i].getValues().length; j += 1) {
             var text = matrixColumns[i].getValues()[j];
-            ctx.fillText(text, cellSize * i, cellSize * j);
+            if (text != null) {
+                ctx.fillText(text, cellSize * i, cellSize * j);
+            }
         }
     }
 }, 100);
@@ -46,7 +48,9 @@ window.setInterval(function () {
 function runMatrix() {
     var $canvas = $(canvasSelector);
 
-    matrix = new MatrixModel($canvas.width() / cellSize, $canvas.height() / cellSize);
+    matrix = new MatrixModel(
+        Math.floor($canvas.width() / cellSize),
+        Math.floor($canvas.height() / cellSize));
 
     matrix.start();
 }
