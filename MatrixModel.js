@@ -1,5 +1,4 @@
 function Column(rowCount) {
-
     var rowCount = rowCount;
     var values = new Array();
     var leadIndex = -1;
@@ -7,11 +6,14 @@ function Column(rowCount) {
 
     this.subscribe = function (speed) {
         symbolsCount = Math.floor(Math.random() * MaxSymbolsInColumn / 2 + MaxSymbolsInColumn / 2);
+
         setInterval(function () {
             leadIndex = (leadIndex + 1) % rowCount;
 
             // new char in column
-            values[leadIndex] = String.fromCharCode(0x30A0 + Math.random() * (0x30FF - 0x30A0 + 1));
+            var symbol = String.fromCharCode(0x30A0 + Math.random() * (0x30FF - 0x30A0 ));
+            // var symbol = String.fromCharCode("0x" + (Math.random(8999) + 1000).toString());
+            values[leadIndex] = symbol;
 
             // let's clear the tail
             var newNullIndex = ((rowCount + (leadIndex - symbolsCount)) % rowCount);
@@ -36,20 +38,6 @@ function MatrixModel(columnsCount, rowCount) {
             columns.push(c);
         }
     }
-
-    //this.updateMatrixSize = function (w, d) {
-    //    if (w > columns.length) {
-    //        var delta = w - columns.length;
-    //
-    //        for (var i = 0; i < delta / 2; i++) {
-    //            columns.splice(i, 0, new Column(d));
-    //        }
-    //
-    //        for (var i = 0; i < columns.length - delta / 2; i++) {
-    //            columns.splice(i, 0, new Column(d));
-    //        }
-    //    }
-    //}
 
     this.getColumns = function () {
         return columns;

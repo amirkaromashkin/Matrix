@@ -1,3 +1,4 @@
-This is just-for-fun-project.
+Nothing special.
+Just matrix.
 
-Look at the matrix and relax.
+![Sample](matrix.png)

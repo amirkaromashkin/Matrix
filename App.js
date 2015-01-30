@@ -30,7 +30,7 @@ window.setInterval(function () {
     var ctx = getHDPIContext(canvas);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    ctx.font = FontSize + "px Times New Roman"
+    ctx.font = FontSize + "pt Times New Roman"
     var matrixColumns = matrix.getColumns();
 
     for (var i = 0; i < matrixColumns.length; i += 1) {
@@ -58,12 +58,7 @@ function runMatrix() {
     var columnsCount = Math.floor($canvas.width() / SingleSymbolRoomSize);
     var rowCount = Math.floor($canvas.height() / SingleSymbolRoomSize);
 
-    //if (matrix != null) {
-    //    matrix.updateMatrixSize(columnsCount, rowCount);
-    //}
-    //else {
     matrix = new MatrixModel(columnsCount, rowCount);
-    //}
 
     matrix.start();
 }
